@@ -1,111 +1,181 @@
+/* Globální nastavení a barvy F1 */
 :root {
-    --f1-cervena: #e10600;
-    --pozadi: #15151e;
-    --karta: #1f1f27;
-    --text: #ffffff;
-    --okraj: #38383f;
+    --f1-red: #e10600;
+    --dark-bg: #15151e;
+    --card-bg: #1f1f27;
+    --text-white: #ffffff;
+    --text-gray: #949498;
+    --border: #38383f;
+    --btn-hover: #ff1e1e;
+    --danger: #d40000;
+    --input-height: 44px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background-color: var(--pozadi);
-    color: var(--text);
-    margin: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--text-white);
+    line-height: 1.6;
     padding: 20px;
 }
 
 header {
     text-align: center;
-    border-bottom: 4px solid var(--f1-cervena);
-    padding-bottom: 20px;
-    margin-bottom: 30px;
+    padding: 40px 0;
+    border-bottom: 4px solid var(--f1-red);
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 main {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
-/* KLÍČOVÉ: Sjednocení velikosti všech polí a tlačítek */
-.jednotny-prvek {
-    height: 44px; 
-    box-sizing: border-box;
-    padding: 0 15px;
-    font-size: 15px;
-    border-radius: 4px;
-    border: 1px solid var(--okraj);
-    background-color: #2b2b35;
+/* Styl pro karty (sekce) */
+.card {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border-top: 1px solid var(--border);
+}
+
+.card h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-left: 5px solid var(--f1-red);
+    padding-left: 15px;
+}
+
+/* Formuláře */
+.row {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+input, select {
+    width: 100%;
+    height: var(--input-height);
+    background: #2b2b35;
+    border: 1px solid var(--border);
     color: white;
+    padding: 0 15px;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--f1-red);
+}
+
+/* Tlačítka - všechna stejně vysoká */
+button, .btn {
+    height: var(--input-height);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    vertical-align: middle;
+    background-color: var(--f1-red);
+    color: white;
+    border: none;
+    padding: 0 25px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
 }
 
-.radek-filtru {
+button:hover, .btn:hover {
+    background-color: var(--btn-hover);
+}
+
+.btn-danger {
+    background-color: transparent;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+}
+
+.btn-danger:hover {
+    background-color: var(--danger);
+    color: white;
+}
+
+/* Filtrace */
+.filter-form {
     display: flex;
     gap: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
-.radek-filtru input { flex-grow: 1; }
+.filter-form input {
+    flex-grow: 1;
+}
 
-/* Tabulka a tlačítka v ní */
+/* Tabulka s daty */
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: var(--karta);
+    margin-top: 10px;
 }
 
-th, td {
-    padding: 15px;
+th {
     text-align: left;
-    border-bottom: 1px solid var(--okraj);
+    color: var(--text-gray);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding: 15px;
+    border-bottom: 2px solid var(--border);
 }
 
-.bunka-akci {
+td {
+    padding: 15px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Akce v tabulce */
+.actions {
     display: flex;
-    gap: 8px;
+    gap: 10px;
 }
 
-.tlacitko {
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: none;
-    border: none;
-    transition: 0.2s;
-}
-
-.tlacitko-hlavni, .tlacitko-ulozit { background-color: var(--f1-cervena); width: 100%; }
-.tlacitko-detail { background-color: #4e4e5a; width: 80px; }
-.tlacitko-upravit { background-color: #3e3e4a; width: 80px; }
-.tlacitko-smazat { background-color: #2a2a32; color: #ff4d4d; width: 80px; }
-
-.tlacitko:hover { filter: brightness(1.2); }
-
-/* Formulář */
-.sekce-formulare {
-    background-color: var(--karta);
-    padding: 20px;
-    border-radius: 8px;
-}
-
-.pole-formulare {
-    margin-bottom: 15px;
-}
-
-.pole-formulare label {
+.muted {
     display: block;
-    margin-bottom: 5px;
+    margin-top: 10px;
+    color: var(--text-gray);
+    font-size: 0.85rem;
 }
 
-.pole-formulare input {
-    width: 100%;
-}
-
-.cara {
-    border: 0;
-    height: 1px;
-    background: var(--okraj);
-    margin: 40px 0;
+footer {
+    text-align: center;
+    margin-top: 50px;
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    padding-bottom: 30px;
 }

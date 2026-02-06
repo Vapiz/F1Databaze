@@ -1,0 +1,26 @@
+<div class="card">
+  <h2>Upravit šampiona #{{id}}</h2>
+
+  <form id="editForm" data-id="{{id}}">
+    <div class="row">
+      <label>Jméno:</label>
+      <input name="jmeno" value="{{jmeno}}" required />
+    </div>
+    <div class="row">
+      <label>Tým:</label>
+      <input name="tym" value="{{tym}}" required />
+    </div>
+    <div class="row">
+      <label>Počet titulů:</label>
+      <input type="number" name="tituly" value="{{tituly}}" required />
+    </div>
+    <div class="row">
+      <label>Stát:</label>
+      <input name="stat" value="{{stat}}" required />
+    </div>
+
+    <button type="submit">Uložit změny (PUT)</button>
+    <a href="/" class="muted">Zrušit</a>
+    <p id="editMsg" class="muted"></p>
+  </form>
+</div>
