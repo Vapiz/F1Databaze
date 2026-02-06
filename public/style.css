@@ -1,0 +1,111 @@
+:root {
+    --f1-cervena: #e10600;
+    --pozadi: #15151e;
+    --karta: #1f1f27;
+    --text: #ffffff;
+    --okraj: #38383f;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: var(--pozadi);
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    border-bottom: 4px solid var(--f1-cervena);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* KLÍČOVÉ: Sjednocení velikosti všech polí a tlačítek */
+.jednotny-prvek {
+    height: 44px; 
+    box-sizing: border-box;
+    padding: 0 15px;
+    font-size: 15px;
+    border-radius: 4px;
+    border: 1px solid var(--okraj);
+    background-color: #2b2b35;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.radek-filtru {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.radek-filtru input { flex-grow: 1; }
+
+/* Tabulka a tlačítka v ní */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--karta);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--okraj);
+}
+
+.bunka-akci {
+    display: flex;
+    gap: 8px;
+}
+
+.tlacitko {
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+    transition: 0.2s;
+}
+
+.tlacitko-hlavni, .tlacitko-ulozit { background-color: var(--f1-cervena); width: 100%; }
+.tlacitko-detail { background-color: #4e4e5a; width: 80px; }
+.tlacitko-upravit { background-color: #3e3e4a; width: 80px; }
+.tlacitko-smazat { background-color: #2a2a32; color: #ff4d4d; width: 80px; }
+
+.tlacitko:hover { filter: brightness(1.2); }
+
+/* Formulář */
+.sekce-formulare {
+    background-color: var(--karta);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.pole-formulare {
+    margin-bottom: 15px;
+}
+
+.pole-formulare label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.pole-formulare input {
+    width: 100%;
+}
+
+.cara {
+    border: 0;
+    height: 1px;
+    background: var(--okraj);
+    margin: 40px 0;
+}

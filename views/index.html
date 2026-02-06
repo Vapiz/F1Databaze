@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>F1 Síň slávy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Databáze šampionů F1</h1>
+    </header>
+
+    <main>
+        <section class="sekce-filtru">
+            <form action="/items" method="GET" class="radek-filtru">
+                <input type="text" name="hledat" placeholder="Hledat jezdce..." class="jednotny-prvek">
+                <select name="kriterium" class="jednotny-prvek">
+                    <option value="jmeno">Podle jména</option>
+                    <option value="tituly">Podle titulů</option>
+                </select>
+                <button type="submit" class="jednotny-prvek tlacitko tlacitko-hlavni">Filtrovat</button>
+            </form>
+        </section>
+
+        <section class="sekce-tabulky">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Jméno</th>
+                        <th>Tým</th>
+                        <th>Tituly</th>
+                        <th>Národnost</th>
+                        <th>Akce</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lewis Hamilton</td>
+                        <td>Mercedes</td>
+                        <td>7</td>
+                        <td>Británie</td>
+                        <td class="bunka-akci">
+                            <a href="/item?id=1" class="jednotny-prvek tlacitko tlacitko-detail">Detail</a>
+                            <a href="/edit/1" class="jednotny-prvek tlacitko tlacitko-upravit">Upravit</a>
+                            <form action="/delete/1" method="POST" style="display:inline;">
+                                <button class="jednotny-prvek tlacitko tlacitko-smazat">Smazat</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <hr class="cara">
+
+        <section class="sekce-formulare">
+            <h2>Přidat nového šampiona</h2>
+            <form action="/items" method="POST">
+                <div class="pole-formulare">
+                    <label>Celé jméno:</label>
+                    <input type="text" name="jmeno" required class="jednotny-prvek">
+                </div>
+                <div class="pole-formulare">
+                    <label>Tým:</label>
+                    <input type="text" name="tym" required class="jednotny-prvek">
+                </div>
+                <div class="pole-formulare">
+                    <label>Počet titulů:</label>
+                    <input type="number" name="tituly" min="0" required class="jednotny-prvek">
+                </div>
+                <div class="pole-formulare">
+                    <label>Národnost:</label>
+                    <input type="text" name="stat" required class="jednotny-prvek">
+                </div>
+                <button type="submit" class="jednotny-prvek tlacitko tlacitko-ulozit">Uložit do databáze</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
