@@ -1,4 +1,6 @@
-/* Globální nastavení a barvy F1 */
+/* ========================================= */
+/* GLOBÁLNÍ NASTAVENÍ A BARVY F1             */
+/* ========================================= */
 :root {
     --f1-red: #e10600;
     --dark-bg: #15151e;
@@ -6,7 +8,7 @@
     --text-white: #ffffff;
     --text-gray: #949498;
     --border: #38383f;
-    --btn-hover: #ff1e1e;
+    --btn-hover: #ff2600;
     --danger: #d40000;
     --input-height: 44px;
 }
@@ -25,6 +27,23 @@ body {
     padding: 20px;
 }
 
+/* ========================================= */
+/* OPRAVA ODKAZŮ (Konec fialového podtržení) */
+/* ========================================= */
+a {
+    color: var(--f1-red);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--btn-hover);
+    text-decoration: underline;
+}
+
+/* ========================================= */
+/* HLAVIČKA A NAVIGACE                       */
+/* ========================================= */
 header {
     text-align: center;
     padding: 40px 0;
@@ -38,12 +57,34 @@ header h1 {
     letter-spacing: 2px;
 }
 
+header nav a {
+    display: inline-block;
+    background-color: var(--card-bg);
+    color: var(--text-white);
+    padding: 10px 25px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    margin-top: 15px;
+}
+
+header nav a:hover {
+    background-color: var(--f1-red);
+    border-color: var(--f1-red);
+    color: white;
+    text-decoration: none;
+}
+
 main {
     max-width: 1000px;
     margin: 0 auto;
 }
 
-/* Styl pro karty (sekce) */
+/* ========================================= */
+/* KARTY (Obaly pro obsah)                   */
+/* ========================================= */
 .card {
     background: var(--card-bg);
     border-radius: 8px;
@@ -58,9 +99,24 @@ main {
     font-size: 1.5rem;
     border-left: 5px solid var(--f1-red);
     padding-left: 15px;
+    display: flex;       /* Přidáno pro hezké srovnání jména */
+    align-items: baseline;
+    gap: 10px;
+    color: var(--text-gray); 
 }
 
-/* Formuláře */
+/* Krásné stylování jména jezdce */
+.jmeno-jezdce {
+    color: var(--text-white);
+    font-size: 2rem;
+    font-style: italic;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ========================================= */
+/* FORMULÁŘE                                 */
+/* ========================================= */
 .row {
     margin-bottom: 20px;
 }
@@ -89,7 +145,19 @@ input:focus {
     border-color: var(--f1-red);
 }
 
-/* Tlačítka - všechna stejně vysoká */
+.filter-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.filter-form input {
+    flex-grow: 1;
+}
+
+/* ========================================= */
+/* TLAČÍTKA A AKCE                           */
+/* ========================================= */
 button, .btn {
     height: var(--input-height);
     display: inline-flex;
@@ -109,12 +177,26 @@ button, .btn {
 
 button:hover, .btn:hover {
     background-color: var(--btn-hover);
+    color: white;
+    text-decoration: none;
 }
 
+/* Tlačítko Upravit - Tmavší barva */
+.btn-upravit {
+    background-color: #38383f;
+    border: 1px solid var(--border);
+}
+
+.btn-upravit:hover {
+    background-color: #54545e;
+}
+
+/* Tlačítko Smazat - Průhledné s okrajem, zarovnané doprava */
 .btn-danger {
     background-color: transparent;
     border: 1px solid var(--danger);
     color: var(--danger);
+    margin-left: auto; /* Odtlačí tlačítko doprava */
 }
 
 .btn-danger:hover {
@@ -122,18 +204,26 @@ button:hover, .btn:hover {
     color: white;
 }
 
-/* Filtrace */
-.filter-form {
+/* Obal pro akční tlačítka (Upravit a Smazat) */
+.actions {
     display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
+    justify-content: space-between; /* TOTO JE TA MAGIE: První prvek vlevo, druhý vpravo */
+    align-items: center; /* Srovná je hezky do jedné roviny */
+    width: 100%;
+    margin-top: 25px;
+    margin-bottom: 15px;
 }
 
-.filter-form input {
-    flex-grow: 1;
+.muted {
+    display: block;
+    margin-top: 10px;
+    color: var(--text-gray);
+    font-size: 0.85rem;     
 }
 
-/* Tabulka s daty */
+/* ========================================= */
+/* TABULKA S DATY                            */
+/* ========================================= */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -159,17 +249,16 @@ tr:hover {
     background: rgba(255, 255, 255, 0.05);
 }
 
-/* Akce v tabulce */
-.actions {
-    display: flex;
-    gap: 10px;
+/* Odkazy v tabulce */
+td a {
+    color: var(--text-white);
+    font-weight: bold;
+    text-decoration: none;
 }
 
-.muted {
-    display: block;
-    margin-top: 10px;
-    color: var(--text-gray);
-    font-size: 0.85rem;
+td a:hover {
+    color: var(--f1-red);
+    text-decoration: none;
 }
 
 footer {

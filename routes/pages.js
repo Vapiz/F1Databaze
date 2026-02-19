@@ -32,8 +32,10 @@ function handlePages(req, res) {
         <td><a href="/item/${i.id}">${i.jmeno}</a></td>
         <td>${i.tym}</td>
         <td>
-          <a href="/edit/${i.id}">Upravit</a>
-          <button data-delete-id="${i.id}">Smazat</button>
+          <div class="actions" style="margin: 0;">
+            <a href="/edit/${i.id}" class="btn btn-upravit">Upravit</a>
+            <button data-delete-id="${i.id}" class="btn-danger">Smazat</button>
+          </div>
         </td>
       </tr>`).join("");
 

@@ -1,13 +1,14 @@
 <div class="card">
-  <h2>Detail šampiona: {{jmeno}}</h2>
+  <h2>Detail: <span class="jmeno-jezdce">{{jmeno}}</span></h2>
   <p><b>ID:</b> {{id}}</p>
   <p><b>Tým:</b> {{tym}}</p>
   <p><b>Počet titulů:</b> {{tituly}}</p>
   <p><b>Národnost:</b> {{stat}}</p>
 
   <div class="actions">
-    <a href="/edit/{{id}}" class="btn">Upravit</a>
+    <a href="/edit/{{id}}" class="btn btn-upravit">Upravit</a>
     <button data-delete-id="{{id}}" class="btn-danger">Smazat</button>
-    <a href="/" class="muted">Zpět na seznam</a>
   </div>
+  
+  <a href="/" class="muted">Zpět na seznam</a>
 </div>
