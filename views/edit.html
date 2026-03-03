@@ -18,6 +18,10 @@
       <label>Stát:</label>
       <input name="stat" value="{{stat}}" required />
     </div>
+    <div class="row">
+      <label>Nová fotka (nech prázdné, pokud nechceš měnit):</label>
+      <input type="file" name="fotka" accept="image/*" style="padding: 10px; cursor: pointer;" />
+    </div>
 
     <button type="submit">Uložit změny (PUT)</button>
     <a href="/" class="muted">Zrušit</a>

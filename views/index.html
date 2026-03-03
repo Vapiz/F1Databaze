@@ -1,34 +1,43 @@
-<div class="card">
+<div class="card create-card">
   <h2>Přidat šampiona</h2>
   <form id="createForm">
-    <div class="row">
-      <label>Jméno:</label>
-      <input name="jmeno" required />
+    
+    <div class="form-grid">
+      <div class="row">
+        <label>Jméno:</label>
+        <input name="jmeno" placeholder="např. Max Verstappen" required />
+      </div>
+      <div class="row">
+        <label>Tým:</label>
+        <input name="tym" placeholder="např. Red Bull Racing" required />
+      </div>
+      <div class="row">
+        <label>Počet titulů:</label>
+        <input type="number" name="tituly" min="0" placeholder="0" required />
+      </div>
+      <div class="row">
+        <label>Národnost:</label>
+        <input name="stat" placeholder="např. Nizozemsko" required />
+      </div>
     </div>
+
     <div class="row">
-      <label>Tým:</label>
-      <input name="tym" required />
+      <label>Fotka jezdce (nepovinné):</label>
+      <input type="file" name="fotka" accept="image/*" style="padding: 10px; cursor: pointer;" />
     </div>
-    <div class="row">
-      <label>Počet titulů:</label>
-      <input type="number" name="tituly" min="0" required />
-    </div>
-    <div class="row">
-      <label>Národnost:</label>
-      <input name="stat" required />
-    </div>
+
     <button type="submit">Uložit do JSON</button>
     <p id="createMsg" class="muted"></p>
   </form>
 </div>
+
 <div class="card">
   <h2>Seznam šampionů</h2>
-  
   <form action="/" method="GET" class="filter-form">
     <input type="text" name="search" placeholder="Hledat podle jména nebo týmu...">
     <button type="submit">Filtrovat</button>
   </form>
-
+  
   <table>
     <thead>
       <tr>
