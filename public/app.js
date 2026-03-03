@@ -43,8 +43,42 @@ document.addEventListener("click", async (e) => {
 
   try {
     await api(`/api/champions/${id}`, { method: "DELETE" });
-    window.location.reload();
+    
+    // TADY JE ZMĚNA: Přesměrujeme vždy na hlavní stránku
+    window.location.href = "/"; 
+    
   } catch (err) {
     alert("Chyba při mazání: " + JSON.stringify(err.data));
   }
 });
+
+// ÚPRAVA ŠAMPIONA (PUT /api/champions/:id)
+const formUpravit = document.getElementById("editForm");
+if (formUpravit) {
+  formUpravit.addEventListener("submit", async (e) => {
+    e.preventDefault(); // Zabrání klasickému odeslání do prázdna
+    
+    const id = formUpravit.dataset.id; // Získá ID z formuláře
+    const fd = new FormData(formUpravit);
+    
+    // Zabalíme upravená data
+    const payload = { 
+        jmeno: fd.get("jmeno"), 
+        tym: fd.get("tym"), 
+        tituly: Number(fd.get("tituly")),
+        stat: fd.get("stat")
+    };
+
+    try {
+      // Odeslání metodou PUT
+      await api(`/api/champions/${id}`, { 
+        method: "PUT", 
+        body: JSON.stringify(payload) 
+      });
+      // Vše proběhlo OK, jdeme zpět na domovskou stránku
+      window.location.href = "/"; 
+    } catch (err) {
+      document.getElementById("editMsg").textContent = "Chyba: " + (err.data?.error || "Nepodařilo se upravit");
+    }
+  });
+}

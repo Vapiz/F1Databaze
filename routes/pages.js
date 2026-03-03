@@ -23,9 +23,24 @@ function sendHtml(res, html, status = 200) {
 }
 
 function handlePages(req, res) {
-  // GET / (Hlavní stránka)
-  if (req.url === "/" && req.method === "GET") {
-    const items = store.getAll();
+  // Rozložení URL adresy, abychom mohli číst parametry (např. ?search=Hamilton)
+  const baseURL = `http://${req.headers.host || "localhost"}`;
+  const urlObj = new URL(req.url, baseURL);
+
+  // GET / (Hlavní stránka s filtrací)
+  if (urlObj.pathname === "/" && req.method === "GET") {
+    let items = store.getAll();
+    const search = urlObj.searchParams.get("search");
+
+    // FILTRACE - pokud uživatel něco hledá
+    if (search) {
+      const hledanyText = search.toLowerCase();
+      items = items.filter(i => 
+        i.jmeno.toLowerCase().includes(hledanyText) || 
+        i.tym.toLowerCase().includes(hledanyText)
+      );
+    }
+
     const rows = items.map(i => `
       <tr>
         <td>${i.id}</td>
@@ -40,7 +55,7 @@ function handlePages(req, res) {
       </tr>`).join("");
 
     const indexTpl = loadView("index.html");
-    const content = render(indexTpl, { rows: rows || "<tr><td colspan='4'>Žádná data</td></tr>" });
+    const content = render(indexTpl, { rows: rows || "<tr><td colspan='4'>Žádná data nebyla nalezena</td></tr>" });
     return sendHtml(res, renderLayout({ title: "F1 Šampioni", content }));
   }
 
@@ -52,7 +67,7 @@ function handlePages(req, res) {
     return sendHtml(res, renderLayout({ title: "Editace", content }));
   }
 
-  // GET /item/:id [cite: 16]
+  // GET /item/:id
   if (req.url.startsWith("/item/") && req.method === "GET") {
     const id = Number(req.url.split("/")[2]);
     const item = store.getById(id);
