@@ -44,7 +44,6 @@ document.addEventListener("click", async (e) => {
   try {
     await api(`/api/champions/${id}`, { method: "DELETE" });
     
-    // TADY JE ZMĚNA: Přesměrujeme vždy na hlavní stránku
     window.location.href = "/"; 
     
   } catch (err) {
