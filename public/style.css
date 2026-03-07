@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Orbitron:wght@700&display=swap');
 
-/* ========================================= */
-/* GLOBÁLNÍ NASTAVENÍ A BARVY F1             */
-/* ========================================= */
 :root {
     --f1-red: #e10600;
     --dark-bg: #0d0d12;
@@ -15,10 +12,10 @@
     --input-height: 48px;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
 }
 
 body {
@@ -29,38 +26,40 @@ body {
     padding: 40px 20px;
 }
 
-/* ========================================= */
-/* OPRAVA ODKAZŮ                             */
-/* ========================================= */
-a {
-    color: var(--f1-red);
-    text-decoration: none;
-    transition: all 0.2s ease;
+a { 
+    color: var(--f1-red); 
+    text-decoration: none; 
+    transition: all 0.2s ease; 
 }
 
-a:hover {
-    color: var(--btn-hover);
-    text-decoration: underline;
+a:hover { 
+    color: var(--btn-hover); 
+    text-decoration: underline; 
 }
 
-/* ========================================= */
-/* HLAVIČKA A NAVIGACE                       */
-/* ========================================= */
 header {
     text-align: center;
     padding-bottom: 40px;
     margin-bottom: 50px;
-    border-bottom: 1px solid var(--border);
+    position: relative;
+}
+
+header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
 }
 
 header h1 {
     font-family: 'Orbitron', sans-serif;
     font-size: 3rem;
-    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 20px;
-    color: var(--text-white);
 }
 
 header nav a {
@@ -72,45 +71,32 @@ header nav a {
     font-weight: 700;
     text-transform: uppercase;
     font-size: 0.9rem;
-    letter-spacing: 1px;
-    backdrop-filter: blur(10px);
 }
 
 header nav a:hover {
     background-color: var(--f1-red);
-    color: white;
-    transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(225, 6, 0, 0.3);
 }
 
-main {
-    max-width: 1000px;
-    margin: 0 auto;
+main { 
+    max-width: 1000px; 
+    margin: 0 auto; 
 }
 
-/* ========================================= */
-/* KARTY (Obaly pro obsah)                   */
-/* ========================================= */
-
 .card {
-    background: linear-gradient(145deg, var(--card-bg), #111118); 
+    background: linear-gradient(145deg, var(--card-bg), #111118);
     border-radius: 20px;
     padding: 40px;
     margin-bottom: 40px;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-left: 4px solid var(--f1-red); 
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    border-left: 4px solid var(--f1-red);
+    box-shadow: 0 40px 150px rgba(0, 0, 0, 0.8);
 }
-
 
 .card h2 {
     margin-bottom: 30px;
     font-size: 1.8rem;
-    display: flex;       
-    align-items: baseline;
-    gap: 12px;
-    color: var(--text-gray); 
-    font-weight: 600;
+    color: var(--text-gray);
 }
 
 .jmeno-jezdce {
@@ -118,21 +104,41 @@ main {
     font-size: 2.5rem;
     font-style: italic;
     font-weight: 800;
-    letter-spacing: 1px;
     text-transform: uppercase;
     background: linear-gradient(45deg, #ffffff, #a1a1aa);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    padding-right: 10px;
-    padding-bottom: 5px; 
-    line-height: 1.2;
 }
 
-/* ========================================= */
-/* FORMULÁŘE                                 */
-/* ========================================= */
-.row {
-    margin-bottom: 25px;
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 20px;
+}
+
+.filter-bar {
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr auto;
+    gap: 15px;
+    align-items: flex-end;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.filter-item label {
+    font-size: 0.75rem;
+    margin-bottom: 5px;
+}
+
+.filter-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.row { 
+    margin-bottom: 25px; 
 }
 
 label {
@@ -140,8 +146,7 @@ label {
     margin-bottom: 10px;
     font-weight: 600;
     color: var(--text-gray);
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
+    font-size: 0.9rem;
 }
 
 input, select {
@@ -152,36 +157,13 @@ input, select {
     color: white;
     padding: 0 20px;
     border-radius: 12px;
-    font-size: 1rem;
-    font-family: inherit;
-    transition: all 0.3s ease;
 }
 
-input:focus {
-    outline: none;
-    border-color: var(--f1-red);
-    background: rgba(0, 0, 0, 0.4);
-    box-shadow: 0 0 0 4px rgba(225, 6, 0, 0.1);
+input:focus { 
+    outline: none; 
+    border-color: var(--f1-red); 
 }
 
-.filter-form {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.filter-form input {
-    flex-grow: 1;
-    border-radius: 50px;
-}
-
-.filter-form button {
-    border-radius: 50px;
-}
-
-/* ========================================= */
-/* TLAČÍTKA A AKCE                           */
-/* ========================================= */
 button, .btn {
     height: var(--input-height);
     display: inline-flex;
@@ -190,162 +172,87 @@ button, .btn {
     background-color: var(--f1-red);
     color: white;
     border: none;
-    padding: 0 30px;
+    padding: 0 25px;
     border-radius: 12px;
     font-weight: 700;
-    letter-spacing: 1px;
     text-transform: uppercase;
-    font-family: inherit;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.8rem; 
-    min-width: 80PX;
+    transition: 0.3s;
 }
 
-button:hover, .btn:hover {
-    background-color: var(--btn-hover);
-    color: white;
-    text-decoration: none;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(225, 6, 0, 0.2);
+.btn-upravit { 
+    background: rgba(255,255,255,0.05); 
+    border: 1px solid var(--border); 
 }
 
-.btn-upravit {
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border);
+.btn-danger { 
+    background: transparent; 
+    border: 1px solid rgba(255,71,71,0.3); 
+    color: var(--danger); 
 }
 
-.btn-upravit:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+.btn-danger:hover { 
+    background: var(--danger); 
+    color: white; 
 }
 
-.btn-danger {
-    background-color: transparent;
-    border: 1px solid rgba(255, 71, 71, 0.3);
-    color: var(--danger);
-    margin-left: auto; 
+.actions { 
+    display: flex; 
+    gap: 15px; 
+    margin-top: 35px; 
+    clear: both; 
 }
 
-.btn-danger:hover {
-    background-color: var(--danger);
-    color: white;
-    box-shadow: 0 8px 15px rgba(255, 71, 71, 0.2);
-}
-
-.actions {
-    display: flex;
-    gap: 15px;
-    margin-top: 35px;
-    margin-bottom: 20px;
+table { 
     width: 100%; 
-    clear: both;
+    border-collapse: separate; 
+    border-spacing: 0 10px; 
 }
 
-.muted {
-    display: inline-block;
-    margin-top: 15px;
-    color: var(--text-gray);
-    font-size: 0.9rem;     
+th { 
+    text-align: left; 
+    color: var(--text-gray); 
+    font-size: 0.8rem; 
+    padding: 0 20px; 
 }
 
-/* ========================================= */
-/* TABULKA S DATY                            */
-/* ========================================= */
-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 10px;
-    margin-top: 10px;
+td { 
+    padding: 20px; 
+    background: rgba(255,255,255,0.02); 
 }
 
-th {
-    text-align: left;
-    color: var(--text-gray);
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-    padding: 0 20px 10px 20px;
-    border-bottom: none;
+td:first-child { 
+    border-radius: 12px 0 0 12px; 
 }
 
-td {
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.02);
+td:last-child { 
+    border-radius: 0 12px 12px 0; 
 }
 
-td:first-child { border-radius: 12px 0 0 12px; }
-td:last-child { border-radius: 0 12px 12px 0; }
-
-tr:hover td {
-    background: rgba(255, 255, 255, 0.04);
+.avatar-small { 
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    margin-right: 15px; 
 }
 
-td a {
-    color: var(--text-white);
-    font-weight: 700;
-    font-size: 1.1rem;
-    text-decoration: none;
-}
-
-td a:hover {
-    color: var(--f1-red);
-}
-
-footer {
-    text-align: center;
-    margin-top: 60px;
-    color: var(--text-gray);
-    font-size: 0.9rem;
-    padding-bottom: 40px;
-}
-
-/* ========================================= */
-/* AVATARY A FOTKY                           */
-/* ========================================= */
-.avatar-small {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 15px;
-    border: 2px solid var(--border);
-    background-color: var(--card-bg);
-}
-
-.avatar-large {
-    width: 200px;
-    height: 200px;
-    border-radius: 15px;
-    object-fit: cover;
-    border: 2px solid var(--border);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+.avatar-large { 
+    width: 200px; 
+    height: 200px; 
+    border-radius: 20px; 
+    object-fit: cover; 
     float: right; 
-    margin-left: 30px;
-    margin-bottom: 20px; 
+    margin-left: 30px; 
 }
 
-.jmeno-wrapper {
-    display: flex;
-    align-items: center;
+.jmeno-wrapper { 
+    display: flex; 
+    align-items: center; 
 }
 
-/* ========================================= */
-/* VYLEPŠENÍ FORMULÁŘE (Grid a detaily)      */
-/* ========================================= */
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 20px; 
-}
-
-@media (max-width: 768px) {
-    .form-grid {
+@media (max-width: 800px) {
+    .form-grid, .filter-bar { 
         grid-template-columns: 1fr; 
     }
-}
-
-.create-card {
-    border-left: 4px solid var(--f1-red);
-    background: linear-gradient(145deg, var(--card-bg), #111118);
 }
