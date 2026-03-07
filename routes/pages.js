@@ -1,15 +1,23 @@
-// Importy a nastavení
+/* ========================================= */
+/* IMPORTY A ZÁKLADNÍ NASTAVENÍ              */
+/* ========================================= */
+
 const fs = require("fs");
 const path = require("path");
 const store = require("../storage/championsStore");
 
+// urci presnou cestu na serveru kde lezi slozka views se sablonami
 const VIEWS_DIR = path.join(__dirname, "..", "views");
 
-// Pomocné funkce pro renderování
+/* ========================================= */
+/* POMOCNÉ FUNKCE PRO HTML ŠABLONY           */
+/* ========================================= */
+
 function loadView(name) { return fs.readFileSync(path.join(VIEWS_DIR, name), "utf-8"); }
 
 function render(template, vars) {
   let out = template;
+  // projde vsechny promenne a narve je do html misto tech divnych zavorek
   for (const [k, v] of Object.entries(vars)) { out = out.replaceAll(`{{${k}}}`, String(v)); }
   return out;
 }
@@ -24,21 +32,26 @@ function sendHtml(res, html, status = 200) {
   res.end(html);
 }
 
-// Hlavní zpracování stránek (Routy)
 function handlePages(req, res) {
   const baseURL = `http://${req.headers.host || "localhost"}`;
   const urlObj = new URL(req.url, baseURL);
 
-  // GET / (Hlavní stránka s více filtry a rolovacím menu)
+  /* ========================================= */
+  /* HLAVNÍ STRÁNKA A FILTRY (GET)             */
+  /* CESTA: /                                  */
+  /* ========================================= */
   if (urlObj.pathname === "/" && req.method === "GET") {
     let allItems = store.getAll();
 
+    // vytahne si z url adresy jednotlive parametry pro filtraci (pokud refreshujeme stranku)
     const search = urlObj.searchParams.get("search") || "";
     const filterTym = urlObj.searchParams.get("tym") || "";
     const minTituly = urlObj.searchParams.get("minTituly") || "";
 
+    // udela pole ze vsech tymu a funkce set z nej automaticky vyhazi vsechny duplikaty
     const unikatniTymy = [...new Set(allItems.map(i => i.tym))].sort();
     
+    // posklada html znacky pro rolovaci vyber tymu
     const tymOptions = unikatniTymy.map(tym => {
       const isSelected = tym === filterTym ? "selected" : "";
       return `<option value="${tym}" ${isSelected}>${tym}</option>`;
@@ -50,6 +63,7 @@ function handlePages(req, res) {
     if (minTituly) items = items.filter(i => i.tituly >= Number(minTituly));
 
     const rows = items.map(i => {
+      // pokud jezdec nema nahozenou fotku api mu vygeneruje profilovku jen s inicialy
       const fotkaUrl = i.fotka || `https://ui-avatars.com/api/?name=${i.jmeno}&background=2b2b35&color=fff`;
       return `
       <tr>
@@ -80,7 +94,10 @@ function handlePages(req, res) {
     return sendHtml(res, renderLayout({ title: "F1 Šampioni", content }));
   }
 
-  // GET /edit/:id
+  /* ========================================= */
+  /* STRÁNKA PRO ÚPRAVU (GET)                  */
+  /* CESTA: /edit/:id                          */
+  /* ========================================= */
   if (req.url.startsWith("/edit/") && req.method === "GET") {
     const id = Number(req.url.split("/")[2]);
     const item = store.getById(id);
@@ -88,7 +105,10 @@ function handlePages(req, res) {
     return sendHtml(res, renderLayout({ title: "Editace", content: render(loadView("edit.html"), item) }));
   }
 
-  // GET /item/:id
+  /* ========================================= */
+  /* STRÁNKA PRO DETAIL JEZDCE (GET)           */
+  /* CESTA: /item/:id                          */
+  /* ========================================= */
   if (req.url.startsWith("/item/") && req.method === "GET") {
     const id = Number(req.url.split("/")[2]);
     const item = store.getById(id);

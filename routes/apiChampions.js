@@ -1,9 +1,15 @@
 const store = require("../storage/championsStore");
 
+/* ========================================= */
+/* POMOCNÉ FUNKCE PRO PRÁCI S DATY           */
+/* ========================================= */
+
 function readBodyJson(req, cb) {
   let body = "";
+  // node js prijima data po malych kouscich takze si je postupne lepi dohromady
   req.on("data", (ch) => (body += ch));
   req.on("end", () => {
+    // az data dotečou prevede ten text na pouzitelny objekt
     try { cb(null, JSON.parse(body || "{}")); } catch (e) { cb(e); }
   });
 }
@@ -14,19 +20,32 @@ function sendJson(res, status, data) {
 }
 
 function handleApiChampions(req, res) {
-  // GET /api/champions - Seznam s filtrací [cite: 15, 29]
+  
+  /* ========================================= */
+  /* ZÍSKÁNÍ DAT A FILTRACE (GET)              */
+  /* CESTA: /api/champions                     */
+  /* ========================================= */
   if (req.url.startsWith("/api/champions") && req.method === "GET") {
     let items = store.getAll();
     const urlObj = new URL(req.url, `http://${req.headers.host}`);
-    const search = urlObj.searchParams.get("search");
+    
+    // vytahne vsechny parametry z url adresy
+    const search = urlObj.searchParams.get("search") || "";
+    const filterTym = urlObj.searchParams.get("tym") || "";
+    const minTituly = urlObj.searchParams.get("minTituly") || "";
 
-    if (search) {
-      items = items.filter(i => i.jmeno.toLowerCase().includes(search.toLowerCase()) || i.tym.toLowerCase().includes(search.toLowerCase()));
-    }
+    // vyfiltruje data podle toho co uzivatel zadal
+    if (search) items = items.filter(i => i.jmeno.toLowerCase().includes(search.toLowerCase()) || i.tym.toLowerCase().includes(search.toLowerCase()));
+    if (filterTym) items = items.filter(i => i.tym === filterTym);
+    if (minTituly) items = items.filter(i => i.tituly >= Number(minTituly));
+
     return sendJson(res, 200, items);
   }
 
-  // POST /api/champions - Vytvoření [cite: 17]
+  /* ========================================= */
+  /* VYTVOŘENÍ NOVÉHO JEZDCE (POST)            */
+  /* CESTA: /api/champions                     */
+  /* ========================================= */
   if (req.url === "/api/champions" && req.method === "POST") {
     return readBodyJson(req, (err, data) => {
       const created = store.create(data);
@@ -34,14 +53,21 @@ function handleApiChampions(req, res) {
     });
   }
 
-  // DELETE /api/champions/:id - Smazání [cite: 20]
+  /* ========================================= */
+  /* SMAZÁNÍ JEZDCE (DELETE)                   */
+  /* CESTA: /api/champions/:id                 */
+  /* ========================================= */
   if (req.url.startsWith("/api/champions/") && req.method === "DELETE") {
+    // rozsekne url adresu podle lomitek a vytahne z ni to treti slovo coz je id jezdce
     const id = Number(req.url.split("/")[3]);
     const removed = store.remove(id);
     return sendJson(res, 200, { message: "Smazáno", removed });
   }
 
-  // PUT /api/champions/:id - Editace [cite: 19]
+  /* ========================================= */
+  /* ÚPRAVA JEZDCE (PUT)                       */
+  /* CESTA: /api/champions/:id                 */
+  /* ========================================= */
   if (req.url.startsWith("/api/champions/") && req.method === "PUT") {
     const id = Number(req.url.split("/")[3]);
     return readBodyJson(req, (err, data) => {

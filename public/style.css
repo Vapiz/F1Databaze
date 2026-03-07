@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Orbitron:wght@700&display=swap');
 
+/* ========================================= */
+/* GLOBÁLNÍ NASTAVENÍ A BARVY                */
+/* ========================================= */
 :root {
     --f1-red: #e10600;
     --dark-bg: #0d0d12;
@@ -24,8 +27,19 @@ body {
     color: var(--text-white);
     line-height: 1.7;
     padding: 40px 20px;
+    
+    /* Jemná inženýrská mřížka na pozadí */
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-attachment: fixed; 
+    margin: 0;
 }
 
+/* ========================================= */
+/* ODKAZY                                    */
+/* ========================================= */
 a { 
     color: var(--f1-red); 
     text-decoration: none; 
@@ -37,52 +51,64 @@ a:hover {
     text-decoration: underline; 
 }
 
+/* ========================================= */
+/* HLAVIČKA A NAVIGACE                       */
+/* ========================================= */
 header {
     text-align: center;
-    padding-bottom: 40px;
-    margin-bottom: 50px;
+    background-color: var(--f1-red);
+    /* Vytáhne lištu ke krajům a vytvoří prostor pro zešikmení */
+    margin: -40px -20px 60px -20px; 
+    padding: 60px 20px 110px 20px;
     position: relative;
-}
-
-header::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 10%;
-    width: 80%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    /* Aerodynamický šikmý střih spodní hrany */
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+    /* Jemný stín přímo v hlavičce, který odroluje s ní */
+    background-image: radial-gradient(circle at 50% 30%, #cf02029f, var(--f1-red) 70%);
 }
 
 header h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 3rem;
+    font-size: 3.5rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
+    letter-spacing: 4px;
+    margin-bottom: 25px;
+    color: white;
+    text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 header nav a {
     display: inline-block;
-    background-color: rgba(255, 255, 255, 0.05);
-    color: var(--text-white);
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-weight: 700;
+    background-color: rgba(255, 255, 255, 0.15); 
+    color: white;
+    padding: 12px 35px;
+    border-radius: 12px;
+    font-weight: 800;
     text-transform: uppercase;
     font-size: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: 0.3s ease;
 }
 
 header nav a:hover {
-    background-color: var(--f1-red);
-    box-shadow: 0 10px 20px rgba(225, 6, 0, 0.3);
+    background-color: white;
+    color: var(--f1-red) !important; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    transform: translateY(-2px);
 }
 
 main { 
     max-width: 1000px; 
     margin: 0 auto; 
+    position: relative;
 }
 
+/* ========================================= */
+/* KARTY S JEMNÝM STÍNEM                     */
+/* ========================================= */
 .card {
     background: linear-gradient(145deg, var(--card-bg), #111118);
     border-radius: 20px;
@@ -90,7 +116,9 @@ main {
     margin-bottom: 40px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-left: 4px solid var(--f1-red);
-    box-shadow: 0 40px 150px rgba(0, 0, 0, 0.8);
+    box-shadow: 
+        0 4px 6px rgba(0, 0, 0, 0.3),
+        0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
 .card h2 {
@@ -106,10 +134,16 @@ main {
     font-weight: 800;
     text-transform: uppercase;
     background: linear-gradient(45deg, #ffffff, #a1a1aa);
-    -webkit-background-clip: text;
+    -webkit-background-clip: text; /* Pro Chrome, Safari, Edge */
+    background-clip: text;         /* Standardní verze (pro klid editoru) */
     -webkit-text-fill-color: transparent;
+    padding-right: 15px;
+    display: inline-block;
 }
 
+/* ========================================= */
+/* FORMULÁŘE A FILTRY                        */
+/* ========================================= */
 .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -164,6 +198,30 @@ input:focus {
     border-color: var(--f1-red); 
 }
 
+/* ========================================= */
+/* OPRAVA SELECT MENU                        */
+/* ========================================= */
+select {
+    appearance: none; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px;
+    padding-right: 45px;
+    cursor: pointer;
+}
+
+select option {
+    background-color: var(--card-bg);
+    color: var(--text-white);
+    padding: 10px;
+}
+
+/* ========================================= */
+/* TLAČÍTKA                                  */
+/* ========================================= */
 button, .btn {
     height: var(--input-height);
     display: inline-flex;
@@ -178,6 +236,8 @@ button, .btn {
     text-transform: uppercase;
     cursor: pointer;
     transition: 0.3s;
+    font-size: 0.85rem; 
+    font-family: inherit;
 }
 
 .btn-upravit { 
@@ -203,6 +263,9 @@ button, .btn {
     clear: both; 
 }
 
+/* ========================================= */
+/* TABULKA                                   */
+/* ========================================= */
 table { 
     width: 100%; 
     border-collapse: separate; 
@@ -229,6 +292,9 @@ td:last-child {
     border-radius: 0 12px 12px 0; 
 }
 
+/* ========================================= */
+/* AVATARY A OBRÁZKY                         */
+/* ========================================= */
 .avatar-small { 
     width: 45px; 
     height: 45px; 
@@ -251,6 +317,34 @@ td:last-child {
     align-items: center; 
 }
 
+/* ========================================= */
+/* PATIČKA (FOOTER)                          */
+/* ========================================= */
+/* ========================================= */
+/* PATIČKA (FOOTER) WITH F1 SLANT            */
+/* ========================================= */
+footer {
+    text-align: center;
+    /* horní padding musí být větší kvůli tomu náklonu, aby text nebyl moc u kraje */
+    padding: 80px 20px 40px 20px; 
+    margin-top: 80px;
+    /* vytáhne barvu až úplně dolů a do stran */
+    margin-bottom: -40px;
+    margin-left: -20px;
+    margin-right: -20px;
+    
+    background-color: #08080a; 
+    color: var(--text-gray);
+    font-size: 0.85rem;
+    position: relative;
+
+    /* Náklon: horní hrana je šikmá, spodní rovná */
+    clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+}
+
+/* ========================================= */
+/* RESPONSIVITA (MOBILY)                     */
+/* ========================================= */
 @media (max-width: 800px) {
     .form-grid, .filter-bar { 
         grid-template-columns: 1fr; 
