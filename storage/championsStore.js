@@ -36,11 +36,18 @@ module.exports = {
   getById: (id) => loadUsers().find((u) => u.id === id) || null,
   
   // Vytvoří nového jezdce
-  create: ({ jmeno, tym, tituly, stat }) => {
+  create: (data) => {
     const users = loadUsers();
     // prohleda vsechny id a priradi dalsi cislo v poradi (aby se neopakovaly)
     const newId = users.length ? Math.max(...users.map((u) => u.id)) + 1 : 1;
-    const user = { id: newId, jmeno, tym, tituly: Number(tituly), stat };
+    
+    // TADY BYLA CHYBA: Teď používáme ...data, aby se uložila i fotka a vše ostatní
+    const user = { 
+        id: newId, 
+        ...data, 
+        tituly: Number(data.tituly) 
+    };
+    
     users.push(user);
     saveUsers(users);
     return user;

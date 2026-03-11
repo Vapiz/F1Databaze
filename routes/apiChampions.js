@@ -42,16 +42,18 @@ function handleApiChampions(req, res) {
     return sendJson(res, 200, items);
   }
 
-  /* ========================================= */
-  /* VYTVOŘENÍ NOVÉHO JEZDCE (POST)            */
-  /* CESTA: /api/champions                     */
-  /* ========================================= */
-  if (req.url === "/api/champions" && req.method === "POST") {
+ /* ========================================= */
+/* VYTVOŘENÍ NOVÉHO JEZDCE (POST)            */
+/* ========================================= */
+if (req.url === "/api/champions" && req.method === "POST") {
     return readBodyJson(req, (err, data) => {
-      const created = store.create(data);
-      return sendJson(res, 201, created);
+        // OPRAVA: Pokud nastala chyba při čtení dat (např. moc velký obrázek), nahlásíme to
+        if (err) return sendJson(res, 400, { error: "Nepodařilo se zpracovat data (možná příliš velký obrázek)" });
+        
+        const created = store.create(data);
+        return sendJson(res, 201, created);
     });
-  }
+}
 
   /* ========================================= */
   /* SMAZÁNÍ JEZDCE (DELETE)                   */
@@ -64,17 +66,19 @@ function handleApiChampions(req, res) {
     return sendJson(res, 200, { message: "Smazáno", removed });
   }
 
-  /* ========================================= */
-  /* ÚPRAVA JEZDCE (PUT)                       */
-  /* CESTA: /api/champions/:id                 */
-  /* ========================================= */
-  if (req.url.startsWith("/api/champions/") && req.method === "PUT") {
+/* ========================================= */
+/* ÚPRAVA JEZDCE (PUT)                       */
+/* ========================================= */
+if (req.url.startsWith("/api/champions/") && req.method === "PUT") {
     const id = Number(req.url.split("/")[3]);
     return readBodyJson(req, (err, data) => {
-      const updated = store.update(id, data);
-      return sendJson(res, 200, updated);
+        // OPRAVA: Stejná kontrola chyby i zde
+        if (err) return sendJson(res, 400, { error: "Chyba při nahrávání úprav" });
+        
+        const updated = store.update(id, data);
+        return sendJson(res, 200, updated);
     });
-  }
+}
 
   return false;
 }
